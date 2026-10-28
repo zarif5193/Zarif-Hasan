@@ -1,0 +1,20 @@
+{
+  "name": "zarif-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MD. Zarif Hasan — personal portfolio with admin panel (Vercel + Supabase PostgreSQL)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "db:d1:create": "wrangler d1 create zarif-portfolio",
+    "db:d1:migrate": "wrangler d1 execute zarif-portfolio --remote --file=schema/schema.sqlite.sql",
+    "db:d1:migrate:local": "wrangler d1 execute zarif-portfolio --local --file=schema/schema.sqlite.sql",
+    "db:pg:migrate": "psql \"$DATABASE_URL\" -f schema/schema.postgres.sql",
+    "build:preview": "node scripts/build-preview.mjs"
+  },
+  "devDependencies": { "wrangler": "^4.154.0" },
+  "engines": { "node": ">=22" },
+  "dependencies": { "pg": "^8.16.3" }
+}
