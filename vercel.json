@@ -1,5 +1,5 @@
 {
   "version": 2,
   "functions": { "api/index.js": { "maxDuration": 15 } },
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/index" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/index?__path=$1" }]
 }
