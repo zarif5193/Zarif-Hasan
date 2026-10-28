@@ -32,7 +32,13 @@ export default async function handler(req, res) {
   try {
     const proto = (req.headers['x-forwarded-proto'] || 'https').split(',')[0];
     const host = req.headers.host || 'localhost';
-    const url = `${proto}://${host}${req.url || '/'}`;
+    const incoming = new URL(req.url || '/', `${proto}://${host}`);
+    const routedPath = incoming.searchParams.get('__path');
+    if (routedPath !== null) {
+      incoming.pathname = '/' + decodeURIComponent(routedPath);
+      incoming.searchParams.delete('__path');
+    }
+    const url = incoming.toString();
     const headers = new Headers();
     for (const [key, value] of Object.entries(req.headers || {})) {
       if (Array.isArray(value)) value.forEach(v => headers.append(key, v));
